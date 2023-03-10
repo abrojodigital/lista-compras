@@ -97,7 +97,7 @@ const ListPage = () => {
                 <FormLabel>Item</FormLabel>
                 <Input type="text" value={item} onChange={(e) => setItem(e.target.value)} />
               </FormControl>
-              <FormControl isRequired>
+              <FormControl>
                 <FormLabel>Cantidad</FormLabel>
                 <Input type="text" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
               </FormControl>
