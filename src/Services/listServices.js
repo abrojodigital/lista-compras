@@ -29,7 +29,7 @@ const getAll = async () => {
   const listCollection = collection(firestore, "shoppingList")
   const response = await getDocs(listCollection)
   const shoppingList = response.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-  return shoppingList
+  return shoppingList.sort((a, b) => a.product.localeCompare(b.product))
 }
 
 const updateList = async (id, payload) => {
@@ -50,4 +50,23 @@ const deleteAllItems = async () => {
   });
 };
 
-export const listServices = { getAll, get, updateList, addToList, deleteItemList, deleteAllItems }
+const getAllGroupedByCategory = async () => {
+  const shoppingList = await getAll();
+  return shoppingList.reduce((acc, cur) => {
+    if (!acc[cur.category]) {
+      acc[cur.category] = [cur];
+    } else {
+      acc[cur.category].push(cur);
+    }
+    return acc;
+  }, {});
+}
+
+const getCategories = async () => {
+  const listCollection = collection(firestore, "shoppingList")
+  const querySnapshot = await getDocs(listCollection)
+  const categories = querySnapshot.docs.map(doc => doc.data().category)
+  return [...new Set(categories)]
+}
+
+export const listServices = { getAll, get, getAllGroupedByCategory, getCategories, updateList, addToList, deleteItemList, deleteAllItems }
