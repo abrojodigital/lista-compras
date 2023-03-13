@@ -6,11 +6,11 @@ import { getAuth } from "firebase/auth"
 const firebaseConfig = {
   // Firebase Config
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: "lista-compras-1ddc1.firebaseapp.com",
-  projectId: "lista-compras-1ddc1",
-  storageBucket: "lista-compras-1ddc1.appspot.com",
-  messagingSenderId: "947049511622",
-  appId: "1:947049511622:web:0dc00a6cb38e28e3fa35c7"
+  authDomain: "lista-compras2-de087.firebaseapp.com",
+  projectId: "lista-compras2-de087",
+  storageBucket: "lista-compras2-de087.appspot.com",
+  messagingSenderId: "883428003330",
+  appId: "1:883428003330:web:6bd6ae6875b9b53620a11b"
 };
 
 // Initialize Firebase and Firestore

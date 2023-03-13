@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react"
 import { listServices } from "../Services/listServices"
 import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Button,
   Container,
   Table,
@@ -12,7 +17,6 @@ import {
   TableContainer,
   Spinner,
   Text,
-  TableCaption,
 } from "@chakra-ui/react"
 import { CheckIcon, EditIcon, DeleteIcon, RepeatIcon } from "@chakra-ui/icons"
 import User from "./User"
@@ -65,38 +69,39 @@ const ListPage = () => {
       <AddItem />
 
       {isLoading && <Spinner size='lg' />}
-      {!isLoading &&
-        <>
-          {categories.map((category) => (
-            <TableContainer mt={3} mb={5} key={category}>
-              <Table variant='simple' size='sm'>
-                <TableCaption>{category}</TableCaption>
-                <Thead>
-                  <Tr>
-                    <Th>Item / unidad</Th>
-                    <Th>Cantidad</Th>
-                    <Th></Th>
-                    <Th></Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {shoppingList[category].map((item) => (
-                    <Tr key={item.id}>
-                      <Td><Text textDecoration={item.check ? "line-through" : ""}>{item.product}</Text></Td>
-                      <Td><Text textDecoration={item.check ? "line-through" : ""}>{item.quantity}</Text></Td>
-                      <Td><Button isDisabled={item.check} onClick={() => handleCheck(category, item.id)}><CheckIcon /></Button></Td>
-                      <Td><Button onClick={() => handleDelete(category, item.id)}><DeleteIcon /></Button></Td>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
+      {!isLoading && (
+        <Accordion defaultIndex={[0]} allowMultiple>
+          {categories.map((category, index) => (
+            <AccordionItem key={category}>
+              <h2>
+                <AccordionButton>
+                  {category}
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel>
+                <Table variant='simple' size='sm'>
+                  
+                  <Tbody>
+                    {shoppingList[category].map((item) => (
+                      <Tr key={item.id}>
+                        <Td><Text textDecoration={item.check ? "line-through" : ""}>{item.product}</Text></Td>
+                        <Td><Text textDecoration={item.check ? "line-through" : ""}>{item.quantity}</Text></Td>
+                        <Td><Button isDisabled={item.check} onClick={() => handleCheck(category, item.id)}><CheckIcon /></Button></Td>
+                        <Td><Button onClick={() => handleDelete(category, item.id)}><DeleteIcon /></Button></Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </AccordionPanel>
+            </AccordionItem>
           ))}
-        </>}
+        </Accordion>
+      )}
 
       <Text>Limpiar lista</Text>
       <Button mt={3} size='lg' type='submit' onClick={handleClean}><RepeatIcon /></Button>
-    </Container >
+    </Container>
   )
 }
 
