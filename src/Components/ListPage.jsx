@@ -81,7 +81,6 @@ const ListPage = () => {
               </h2>
               <AccordionPanel>
                 <Table variant='simple' size='sm'>
-                  
                   <Tbody>
                     {shoppingList[category].map((item) => (
                       <Tr key={item.id}>
